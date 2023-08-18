@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Menu, Layout } from "antd";
+import { Menu } from "antd";
 import menuConfig from "../../config/menu";
 import { SettingOutlined } from "@ant-design/icons";
 import "./index.scss";
+import { Link, Switch } from 'react-router-dom'
 
 const { SubMenu } = Menu;
-const { Sider } = Layout;
-
 export class index3 extends Component {
   state = {
     menuItem: "",
@@ -20,13 +19,15 @@ export class index3 extends Component {
       if (item.items) {
         return (
           <SubMenu key={item.key} title={item.title} icon={<SettingOutlined />}>
-            {/* {item.items.map((items) => {
-              return (
-                <Menu.Item key={items.key} title={items.title}>
-                  {items.title}
-                </Menu.Item>
-              );
-            })} */}
+            {/* {
+              item.items.map((items) => {
+                return (
+                  <Menu.Item key={items.key} title={items.title}>
+                    {items.title}
+                  </Menu.Item>
+                );
+              })
+            } */}
             {this.getMenuItem(item.items)}
           </SubMenu>
         );
@@ -37,7 +38,9 @@ export class index3 extends Component {
             title={item.title}
             icon={<SettingOutlined />}
           >
-            {item.title}
+            <Switch>
+              <Link to={item.key}>{item.title}</Link>
+            </Switch>
           </Menu.Item>
         );
       }
@@ -45,14 +48,15 @@ export class index3 extends Component {
   };
   render() {
     return (
-      <Sider
-        className="sidebar-left"
-        width={200}
-      >
-        <Menu mode="inline" theme="light">
+      <div>
+        <div className='logo'>
+          <img src="/assets/logo-ant.svg" alt="" />
+          <h1>金渡CMS</h1>
+        </div>
+        <Menu mode="inline" theme="dark">
           {this.state.menuItem}
         </Menu>
-      </Sider>
+      </div>
     );
   }
 }
